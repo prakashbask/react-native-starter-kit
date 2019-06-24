@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Container, Content, Form, Item, Label, Input, Text, Button, View,
@@ -42,7 +43,7 @@ class Login extends React.Component {
     const { onFormSubmit } = this.props;
 
     return onFormSubmit(this.state)
-      .then(() => setTimeout(() => Actions.pop(), 1000))
+      .then(() => Actions.main())
       .catch(() => {});
   }
 
@@ -81,19 +82,38 @@ class Login extends React.Component {
                 onChangeText={v => this.handleChange('password', v)}
               />
             </Item>
-
+            
             <Spacer size={20} />
 
             <View padder>
-              <Button block onPress={this.handleSubmit} disabled={loading}>
+              <Text  warning onPress={Actions.forgotPassword}
+                style={styles.forgotPasswordStyle}>
+                Forgot Password?
+              </Text>
+                 
+              <Button block onPress={this.handleSubmit} disabled={loading}
+                style= {styles.button_style}>
                 <Text>{loading ? 'Loading' : 'Login' }</Text>
+              </Button>
+              <Button block onPress={Actions.signUp} >
+                <Text>Signup</Text>
               </Button>
             </View>
           </Form>
         </Content>
       </Container>
     );
-  }
+  } 
 }
+const styles = StyleSheet.create({
+  button_style: {
+    marginBottom: 20
+  },
+  forgotPasswordStyle: {
+    marginBottom: 30,
+    alignSelf: 'flex-end',
+    color: '#f0ad4e'
+  }
+});
 
 export default Login;
